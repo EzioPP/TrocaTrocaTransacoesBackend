@@ -1,4 +1,4 @@
-import { Client } from '../../../domain/entities/Client';
+import { Client } from '@/domain/entities';
 import { IClientRepository } from '../../../domain/repositories/IClientRepository';
 import { ClientMapper } from '../../mapper/ClientMapper';
 import { logger } from '../../logger/logger';

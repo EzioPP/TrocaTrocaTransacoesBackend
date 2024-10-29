@@ -1,4 +1,4 @@
-import { CardControllerFactory } from "@/interface/factories/CardControllerFactory";
+import { CardControllerFactory } from '@/application/factories/CardControllerFactory';
 
 import { Router, Request, Response } from 'express';
 
@@ -37,9 +37,7 @@ CardRoutes.post('/', async (req: Request, res: Response) => {
 
 CardRoutes.put('/id/:id', async (req: Request, res: Response) => {
   try {
-    const card = await cardController.update(
-      req.body,
-    );
+    const card = await cardController.update(req.body);
     if (!card) {
       res.status(404).send({ error: 'Card not found' });
     }
@@ -56,13 +54,10 @@ CardRoutes.get('/number/:number', async (req: Request, res: Response) => {
       res.status(404).send({ error: 'Card not found' });
     }
     res.send(card);
-    } catch (error) {
-        res.status(500).send({ error: 'Internal Server Error' });
-        }
-    }
-  
-);
-
+  } catch (error) {
+    res.status(500).send({ error: 'Internal Server Error' });
+  }
+});
 
 CardRoutes.delete('/id/:id', async (req: Request, res: Response) => {
   try {
@@ -75,6 +70,5 @@ CardRoutes.delete('/id/:id', async (req: Request, res: Response) => {
     res.status(500).send({ error: 'Internal Server Error' });
   }
 });
-
 
 export { CardRoutes };

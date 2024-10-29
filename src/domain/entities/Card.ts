@@ -68,7 +68,7 @@ export class Card {
   set cvv(value: string) {
     this._cvv = value;
   }
-  
+
   set cardType(value: string) {
     this._cardType = value;
   }

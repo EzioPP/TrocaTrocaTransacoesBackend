@@ -17,13 +17,13 @@ export class CardMapper {
 
   static toPersistence(card: Card): CardPrisma {
     return {
-        id_cartao: card.cardId,
-        data_validade: card.expirationDate,
-        numero_cartao: card.cardNumber,
-        codigo_seguranca: card.cvv,
-        tipo_cartao: card.cardType,
-        limite_cartao: new Decimal(card.limit),
-        id_cliente: card.clientId,
-        };
+      id_cartao: card.cardId,
+      data_validade: card.expirationDate,
+      numero_cartao: card.cardNumber,
+      codigo_seguranca: card.cvv,
+      tipo_cartao: card.cardType,
+      limite_cartao: new Decimal(card.limit),
+      id_cliente: card.clientId,
+    };
   }
 }

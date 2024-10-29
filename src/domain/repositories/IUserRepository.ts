@@ -7,4 +7,9 @@ export interface IUserRepository {
   findAll(): Promise<User[]>;
   update(user: User): Promise<User | null>;
   delete(userId: number): Promise<User | null>;
+
+  /**************/
+
+  encryptPassword(password: string): Promise<string>;
+  comparePassword(password: string, hash: string): Promise<boolean>;
 }

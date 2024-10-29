@@ -1,5 +1,5 @@
-import { Pix } from "@/domain/entities";
-import { PixControllerFactory } from "@/interface/factories";
+import { Pix } from '@/domain/entities';
+import { PixControllerFactory } from '@/application/factories';
 
 import { Router, Request, Response } from 'express';
 
@@ -38,9 +38,7 @@ PixRoutes.post('/', async (req: Request, res: Response) => {
 
 PixRoutes.put('/id/:id', async (req: Request, res: Response) => {
   try {
-    const pix = await pixController.update(
-      req.body,
-    );
+    const pix = await pixController.update(req.body);
     if (!pix) {
       res.status(404).send({ error: 'Pix not found' });
     }
@@ -63,14 +61,13 @@ PixRoutes.get('/key/:key', async (req: Request, res: Response) => {
 });
 
 PixRoutes.delete('/id/:id', async (req: Request, res: Response) => {
-    try {
-        const pix = await pixController.delete(Number(req.params.id));
-        if (!pix) {
-        res.status(404).send({ error: 'Pix not found' });
-        }
-        res.send(pix);
-    } catch (error) {
-        res.status(500).send({ error: 'Internal Server Error' });
+  try {
+    const pix = await pixController.delete(Number(req.params.id));
+    if (!pix) {
+      res.status(404).send({ error: 'Pix not found' });
     }
-    }
-);
+    res.send(pix);
+  } catch (error) {
+    res.status(500).send({ error: 'Internal Server Error' });
+  }
+});

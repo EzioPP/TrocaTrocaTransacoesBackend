@@ -1,6 +1,5 @@
 import { ClientControllerFactory } from '../../factories/ClientControllerFactory';
 
-
 import { Router, Request, Response } from 'express';
 
 const ClientRoutes = Router();
@@ -50,9 +49,7 @@ ClientRoutes.post('/', async (req: Request, res: Response) => {
 
 ClientRoutes.put('/id/:id', async (req: Request, res: Response) => {
   try {
-    const client = await clientController.update(
-      req.body,
-    );
+    const client = await clientController.update(req.body);
     if (!client) {
       res.status(404).send({ error: 'Client not found' });
     }
