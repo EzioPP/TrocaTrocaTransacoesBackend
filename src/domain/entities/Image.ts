@@ -1,17 +1,30 @@
 export class Image {
-  private _imageId: number;
-  private _image64: string;
+  _imageId: number;
+  _imageData: Buffer;
+  _imagePath?: string;
 
-  constructor(imageId: number, image64: string) {
+  constructor(imageId: number, image: Buffer, imagePath?: string) {
     this._imageId = imageId;
-    this._image64 = image64;
+    this._imageData = image;
+    this._imagePath = imagePath;
   }
-
   get imageId(): number {
     return this._imageId;
   }
 
-  get image64(): string {
-    return this._image64;
+  get imageData(): Buffer {
+    return this._imageData;
+  }
+
+  set imageData(_imageData: Buffer) {
+    this._imageData = _imageData;
+  }
+
+  get imagePath(): string | undefined {
+    return this._imagePath;
+  }
+
+  set imagePath(_imagePath: string | undefined) {
+    this._imagePath = _imagePath;
   }
 }

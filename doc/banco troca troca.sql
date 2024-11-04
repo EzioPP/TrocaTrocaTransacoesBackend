@@ -1,7 +1,7 @@
 --Banco usuario:
 create table usuario (
 	id_usuario serial primary key,
-	login varchar (50) unique,
+	username varchar (50) unique,
 	senha varchar (50),
 	id_cliente int,
 	foreign key (id_cliente) references cliente (id_cliente)
@@ -9,7 +9,7 @@ create table usuario (
 
 create table imagem (
 	id_imagem serial primary key,
-	imagem text,
+	imagem bytea,
 );
 
 create table cliente (

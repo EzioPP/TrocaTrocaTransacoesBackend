@@ -61,7 +61,7 @@ model Transaction {
 
 model Image {
   id_imagem Int      @id @default(autoincrement())
-  imagem    String?
+  imagem    Bytes
   relatorio Report[]
 
   @@map("imagem")
@@ -69,7 +69,7 @@ model Image {
 
 model User {
   id_usuario Int     @id @default(autoincrement())
-  login      String? @unique @db.VarChar(50)
+  username      String? @unique @db.VarChar(50)
   senha      String? @db.VarChar(50)
   id_cliente Int?
 

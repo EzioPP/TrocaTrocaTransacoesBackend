@@ -4,7 +4,7 @@ export class UserMapper {
   static toDomain(user: UserPrisma): User {
     return new User(
       user.id_cliente ?? 0,
-      user.login ?? '',
+      user.username ?? '',
       user.senha ?? '',
       user.id_cliente ?? 0,
     );
@@ -13,7 +13,7 @@ export class UserMapper {
   static toPersistence(user: User): any {
     return {
       id_usuario: user.id,
-      login: user.login,
+      username: user.username,
       senha: user.password,
       id_cliente: user.clientId,
     };

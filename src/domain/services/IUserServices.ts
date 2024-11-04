@@ -1,4 +1,5 @@
 export interface IUserServices {
-    encryptPassword(password: string): Promise<string>;
-    comparePassword(password: string, hash: string): Promise<boolean>;
+  login(username: string, password: string): Promise<string>;
+  encryptPassword(password: string): Promise<string>;
+  comparePassword(password: string, hash: string): Promise<boolean>;
 }

@@ -5,3 +5,4 @@ export * from './Image';
 export * from './Client';
 export * from './User';
 export * from './Pix';
+export * from './Image';

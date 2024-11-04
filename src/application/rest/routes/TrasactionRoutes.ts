@@ -16,7 +16,9 @@ TransactionRoutes.get('/', async (req: Request, res: Response) => {
 
 TransactionRoutes.get('/id/:id', async (req: Request, res: Response) => {
   try {
-    const transaction = await transactionController.findById(Number(req.params.id));
+    const transaction = await transactionController.findById(
+      Number(req.params.id),
+    );
     if (!transaction) {
       res.status(404).send({ error: 'Transaction not found' });
     }
@@ -49,21 +51,25 @@ TransactionRoutes.put('/id/:id', async (req: Request, res: Response) => {
 
 TransactionRoutes.get('/client/:id', async (req: Request, res: Response) => {
   try {
-    const transactions = await transactionController.findByClientId(Number(req.params.id));
+    const transactions = await transactionController.findByClientId(
+      Number(req.params.id),
+    );
     res.send(transactions);
-    } catch (error) {
+  } catch (error) {
     res.status(500).send({ error: 'Internal Server Error' });
-    }
+  }
 });
 
 TransactionRoutes.delete('/id/:id', async (req: Request, res: Response) => {
-    try {
-        const transaction = await transactionController.delete(Number(req.params.id));
-        if (!transaction) {
-            res.status(404).send({ error: 'Transaction not found' });
-        }
-        res.send(transaction);
-    } catch (error) {
-        res.status(500).send({ error: 'Internal Server Error' });
+  try {
+    const transaction = await transactionController.delete(
+      Number(req.params.id),
+    );
+    if (!transaction) {
+      res.status(404).send({ error: 'Transaction not found' });
     }
+    res.send(transaction);
+  } catch (error) {
+    res.status(500).send({ error: 'Internal Server Error' });
+  }
 });

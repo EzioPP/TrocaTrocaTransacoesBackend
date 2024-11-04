@@ -3,17 +3,22 @@ import { IUserRepository } from '@/domain/repositories';
 import { IUserServices } from '@/domain/services';
 
 export class UserUseCase {
-  constructor(private readonly userRepository: IUserRepository, private readonly userServices: IUserServices) {
+  constructor(
+    private readonly userRepository: IUserRepository,
+    private readonly userServices: IUserServices,
+  ) {
     //
   }
   async save(user: User): Promise<User | null> {
-    const encryptedPassword = await this.userServices.encryptPassword(user.password);
+    const encryptedPassword = await this.userServices.encryptPassword(
+      user.password,
+    );
     user.password = encryptedPassword;
     return this.userRepository.save(user);
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    return this.userRepository.findByEmail(email);
+  async findByUsername(username: string): Promise<User | null> {
+    return this.userRepository.findByUsername(username);
   }
 
   async findById(userId: number): Promise<User | null> {
@@ -25,7 +30,9 @@ export class UserUseCase {
   }
 
   async update(user: User): Promise<User | null> {
-    const encryptedPassword = await this.userServices.encryptPassword(user.password);
+    const encryptedPassword = await this.userServices.encryptPassword(
+      user.password,
+    );
     user.password = encryptedPassword;
     return this.userRepository.update(user);
   }
@@ -33,9 +40,10 @@ export class UserUseCase {
   async delete(userId: number): Promise<User | null> {
     return this.userRepository.delete(userId);
   }
-
   async comparePassword(password: string, hash: string): Promise<boolean> {
     return this.userServices.comparePassword(password, hash);
   }
-  
+  async login(username: string, password: string): Promise<string> {
+    return this.userServices.login(username, password);
+  }
 }
