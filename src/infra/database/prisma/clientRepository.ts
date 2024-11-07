@@ -16,6 +16,7 @@ export class PrismaClientRepository implements IClientRepository {
           telefone: client.phone,
           email: client.email,
           endereco: client.address,
+          saldo: 0,
         },
       });
       return ClientMapper.toDomain(createdClient);
@@ -77,6 +78,7 @@ export class PrismaClientRepository implements IClientRepository {
           telefone: client.phone,
           email: client.email,
           endereco: client.address,
+          saldo: client.balance,
         },
       });
       return ClientMapper.toDomain(updatedClient);

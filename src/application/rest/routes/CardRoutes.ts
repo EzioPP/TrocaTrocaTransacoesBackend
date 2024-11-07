@@ -71,4 +71,4 @@ CardRoutes.delete('/id/:id', async (req: Request, res: Response) => {
   }
 });
 
-export { CardRoutes };
+export default CardRoutes;

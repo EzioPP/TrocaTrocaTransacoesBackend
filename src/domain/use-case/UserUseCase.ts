@@ -36,14 +36,10 @@ export class UserUseCase {
     user.password = encryptedPassword;
     return this.userRepository.update(user);
   }
-
   async delete(userId: number): Promise<User | null> {
     return this.userRepository.delete(userId);
   }
-  async comparePassword(password: string, hash: string): Promise<boolean> {
-    return this.userServices.comparePassword(password, hash);
-  }
-  async login(username: string, password: string): Promise<string> {
-    return this.userServices.login(username, password);
+  async login(username: string, password: string): Promise<string | null> {
+    return this.userRepository.login(username, password);
   }
 }

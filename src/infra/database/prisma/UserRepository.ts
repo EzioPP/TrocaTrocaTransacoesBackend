@@ -1,12 +1,17 @@
 import { User } from '@/domain/entities';
 import { IUserRepository } from '@/domain/repositories';
+import { IUserServices } from '@/domain/services';
 import { UserMapper } from '@/infra/mapper';
 import { logger } from '../../logger/logger';
 
-import { PrismaClient } from '@prisma/client';
-import { IUserServices } from '@/domain/services';
 
-export class UserRepository implements IUserRepository {
+import { PrismaClient } from '@prisma/client';
+import jwt from 'jsonwebtoken';
+
+
+
+
+export class PrismaUserRepository implements IUserRepository {
   constructor(
     private prisma: PrismaClient,
     private readonly userServices: IUserServices,
@@ -84,6 +89,30 @@ export class UserRepository implements IUserRepository {
         },
       });
       return UserMapper.toDomain(updatedUser);
+    } catch (error) {
+      logger.error(error);
+      return null;
+    }
+  }
+
+  async login(username: string, password: string): Promise<string | null> {    
+    try {
+      const secret = process.env.SECRET_KEY || 'segredo';
+      const user = await this.prisma.user.findUnique({
+        where: {
+          username,
+        },
+      });
+      if (!user || !user.senha) return `404`;
+      const isPasswordValid = await this.userServices.comparePassword(
+        password,
+        user.senha,
+      );
+      if (!isPasswordValid) return '401';
+      const token = jwt.sign({ userId: user.id_usuario, username: user.username }, secret, {
+        expiresIn: '1h'
+      });
+      return token;
     } catch (error) {
       logger.error(error);
       return null;

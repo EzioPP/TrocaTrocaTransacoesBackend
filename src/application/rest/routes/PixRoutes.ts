@@ -71,3 +71,5 @@ PixRoutes.delete('/id/:id', async (req: Request, res: Response) => {
     res.status(500).send({ error: 'Internal Server Error' });
   }
 });
+
+export default PixRoutes;

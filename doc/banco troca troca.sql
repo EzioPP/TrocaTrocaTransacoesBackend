@@ -4,6 +4,7 @@ create table usuario (
 	username varchar (50) unique,
 	senha varchar (50),
 	id_cliente int,
+	permissao varchar (20),
 	foreign key (id_cliente) references cliente (id_cliente)
 );
 
@@ -15,6 +16,7 @@ create table imagem (
 create table cliente (
 	id_cliente serial primary key,
 	cpf varchar (11) unique,
+	saldo decimal (10,2),
 	nome varchar (50),
 	telefone varchar (11),
 	email varchar (50) unique,

@@ -1,5 +1,6 @@
 import { ReportControllerFactory } from '@/application/factories';
 import { Router, Request, Response } from 'express';
+
 const reportRoutes = Router();
 
 const reportController = ReportControllerFactory();
@@ -70,3 +71,5 @@ reportRoutes.delete('/id/:id', async (req: Request, res: Response) => {
     res.status(500).send({ error: 'Internal Server Error' });
   }
 });
+
+export default reportRoutes;

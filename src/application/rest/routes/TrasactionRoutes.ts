@@ -2,7 +2,6 @@ import { TransactionControllerFactory } from '@/application/factories';
 import { Router, Request, Response } from 'express';
 
 const TransactionRoutes = Router();
-
 const transactionController = TransactionControllerFactory();
 
 TransactionRoutes.get('/', async (req: Request, res: Response) => {
@@ -73,3 +72,5 @@ TransactionRoutes.delete('/id/:id', async (req: Request, res: Response) => {
     res.status(500).send({ error: 'Internal Server Error' });
   }
 });
+
+export default TransactionRoutes;

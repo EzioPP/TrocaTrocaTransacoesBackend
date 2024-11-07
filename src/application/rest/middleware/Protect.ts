@@ -9,16 +9,16 @@ declare module 'express' {
 
     export interface Request {
   
-      user?: Number;
+      user?: string | jwt.JwtPayload;
     }
 }  
-export default function protect(req: Request, res: Response, next: NextFunction) {\
+export default function protect(req: Request, res: Response, next: NextFunction) {
     try {
     dotenv.config();
     const secret = process.env.SECRET;
     if (!secret) throw new Error('Secret is not defined');
     
-    const token = req.headers['authorization']?.split(' ')[1]; // Bearer <token>
+    const token = req.headers['authorization']?.split(' ')[1];
 
     if (!token) return res.status(403).json({ message: 'Access denied' });
 
@@ -33,3 +33,4 @@ export default function protect(req: Request, res: Response, next: NextFunction)
         logger.error(error);
         return res.status(500).json({ message: 'Internal server error' });        
     }
+}

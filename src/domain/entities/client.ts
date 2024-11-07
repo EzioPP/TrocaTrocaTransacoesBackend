@@ -2,6 +2,7 @@ export class Client {
   private _clientId: number;
   private _cpf: string;
   private _name: string;
+  private _balance: number;
   private _phone: string;
   private _email: string;
   private _address: string;
@@ -13,12 +14,14 @@ export class Client {
     phone: string,
     email: string,
     address: string,
+    balance: number = 0,
   ) {
     this._clientId = clientId;
     this._cpf = cpf;
     this._name = name;
     this._phone = phone;
-    this._email = email;
+    this._email = address;
+    this._balance = balance;
     this._address = address;
   }
 
@@ -46,6 +49,10 @@ export class Client {
     return this._address;
   }
 
+  get balance(): number {
+    return this._balance;
+  }
+
   set clientId(value: number) {
     this._clientId = value;
   }
@@ -68,5 +75,9 @@ export class Client {
 
   set address(value: string) {
     this._address = value;
+  }
+
+  set balance(value: number) {
+    this._balance = value;
   }
 }
