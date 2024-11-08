@@ -4,6 +4,88 @@ import { Router, Request, Response } from 'express';
 const TransactionRoutes = Router();
 const transactionController = TransactionControllerFactory();
 
+/**
+ * @swagger
+ * /api/transactions:
+ *   get:
+ *     summary: Retrieve all transactions
+ *     responses:
+ *       200:
+ *         description: A list of transactions
+ *       500:
+ *         description: Internal Server Error
+ * /api/transactions/id/{id}:
+ *   get:
+ *     summary: Retrieve a transaction by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A transaction object
+ *       404:
+ *         description: Transaction not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/transactions:
+ *   post:
+ *     summary: Create a new transaction
+ *     responses:
+ *       200:
+ *         description: The created transaction
+ *       500:
+ *         description: Internal Server Error
+ * /api/transactions/id/{id}:
+ *   put:
+ *     summary: Update a transaction by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The updated transaction
+ *       404:
+ *         description: Transaction not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/transactions/client/{id}:
+ *   get:
+ *     summary: Retrieve transactions by client ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A list of transactions
+ *       500:
+ *         description: Internal Server Error
+ * /api/transactions/id/{id}:
+ *   delete:
+ *     summary: Delete a transaction by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The deleted transaction
+ *       404:
+ *         description: Transaction not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
 TransactionRoutes.get('/', async (req: Request, res: Response) => {
   try {
     const transactions = await transactionController.findAll();

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "nodemon --watch src --exec \"ts-node src/index.ts\"",
+    "dev": "nodemon --watch src --exec \"ts-node -r tsconfig-paths/register src/index.ts\"",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "prisma": {
@@ -40,6 +40,7 @@
     "express": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
     "sharp": "^0.33.5",
+    "tsconfig-paths": "^4.2.0",
     "winston": "^3.14.2"
   }
 }

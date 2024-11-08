@@ -1,1 +1,1 @@
-require('./interface/rest/server');
+require('@/application/rest/Server');

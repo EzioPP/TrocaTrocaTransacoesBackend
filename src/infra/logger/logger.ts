@@ -1,7 +1,7 @@
 import winston from 'winston';
 
 const { combine, timestamp, align, printf, colorize } = winston.format;
-// Teve que ser refeito o formater individual pq as corzinhas do winston estavam quebrando os .logs kkkk
+// Teve que ser refeito o formater individual pq as corzinhas do winston estavam quebrando os .log
 export const logger = winston.createLogger({
   level: 'silly',
   format: combine(

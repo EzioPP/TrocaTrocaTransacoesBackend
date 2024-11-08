@@ -5,6 +5,86 @@ const UserRoutes = Router();
 
 const userControllerFactory = UserControllerFactory();
 
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Retrieve all users
+ *     responses:
+ *       200:
+ *         description: A list of users
+ *       500:
+ *         description: Internal Server Error
+ * /api/users/id/{id}:
+ *   get:
+ *     summary: Retrieve a user by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A user object
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/users:
+ *   post:
+ *     summary: Create a new user
+ *     responses:
+ *       200:
+ *         description: The created user
+ *       500:
+ *         description: Internal Server Error
+ * /api/users/id/{id}:
+ *   put:
+ *     summary: Update a user by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The updated user
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/users/id/{id}:
+ *   delete:
+ *     summary: Delete a user by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The deleted user
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/users/login:
+ *   post:
+ *     summary: Authenticate a user
+ *     responses:
+ *       200:
+ *         description: Authentication successful
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
 UserRoutes.get('/', async (req: Request, res: Response) => {
   try {
     const users = await userControllerFactory.findAll();

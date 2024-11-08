@@ -5,6 +5,88 @@ const reportRoutes = Router();
 
 const reportController = ReportControllerFactory();
 
+/**
+ * @swagger
+ * /api/reports:
+ *   get:
+ *     summary: Retrieve all reports
+ *     responses:
+ *       200:
+ *         description: A list of reports
+ *       500:
+ *         description: Internal Server Error
+ * /api/reports/id/{id}:
+ *   get:
+ *     summary: Retrieve a report by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A report object
+ *       404:
+ *         description: Report not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/reports:
+ *   post:
+ *     summary: Create a new report
+ *     responses:
+ *       200:
+ *         description: The created report
+ *       500:
+ *         description: Internal Server Error
+ * /api/reports/id/{id}:
+ *   put:
+ *     summary: Update a report by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The updated report
+ *       404:
+ *         description: Report not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/reports/client/{id}:
+ *   get:
+ *     summary: Retrieve reports by client ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A list of reports
+ *       500:
+ *         description: Internal Server Error
+ * /api/reports/id/{id}:
+ *   delete:
+ *     summary: Delete a report by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The deleted report
+ *       404:
+ *         description: Report not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
 reportRoutes.get('/', async (req: Request, res: Response) => {
   try {
     const reports = await reportController.findAll();

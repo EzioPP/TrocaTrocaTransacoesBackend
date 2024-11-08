@@ -3,6 +3,90 @@ import { PixControllerFactory } from '@/application/factories';
 
 import { Router, Request, Response } from 'express';
 
+/**
+ * @swagger
+ * /api/pix:
+ *   get:
+ *     summary: Retrieve all pix
+ *     responses:
+ *       200:
+ *         description: A list of pix
+ *       500:
+ *         description: Internal Server Error
+ * /api/pix/id/{id}:
+ *   get:
+ *     summary: Retrieve a pix by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A pix object
+ *       404:
+ *         description: Pix not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/pix:
+ *   post:
+ *     summary: Create a new pix
+ *     responses:
+ *       200:
+ *         description: The created pix
+ *       500:
+ *         description: Internal Server Error
+ * /api/pix/id/{id}:
+ *   put:
+ *     summary: Update a pix by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The updated pix
+ *       404:
+ *         description: Pix not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/pix/key/{key}:
+ *   get:
+ *     summary: Retrieve a pix by key
+ *     parameters:
+ *       - in: path
+ *         name: key
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A pix object
+ *       404:
+ *         description: Pix not found
+ *       500:
+ *         description: Internal Server Error
+ * /api/pix/id/{id}:
+ *   delete:
+ *     summary: Delete a pix by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The deleted pix
+ *       404:
+ *         description: Pix not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
 const PixRoutes = Router();
 const pixController = PixControllerFactory();
 
