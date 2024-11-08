@@ -26,14 +26,3 @@ app.use('/api/user/', UserRoutes);
 app.listen(port, () => {
   logger.info(`Server is running on http://localhost:${port}`);
 });
-
-/*
-endpoints:
-  - /api/
-  
-  - /api/client/
-  - /api/pix/
-  - /api/report/
-  - /api/transaction/
-  - /api/user/
-*/
