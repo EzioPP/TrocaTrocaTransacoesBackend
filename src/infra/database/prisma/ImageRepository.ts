@@ -9,9 +9,9 @@ import { logger } from '@/infra/logger';
     _imageId: number;
     _imageData: Buffer; */
 
-export class ImageRepository implements IImageRepository {
-  constructor(private prisma: PrismaClient) {}
-  
+export class PrismaImageRepository implements IImageRepository {
+  constructor(private prisma: PrismaClient) { }
+
   async findByImageId(imageId: number): Promise<Image | null> {
     try {
       const image = await this.prisma.image.findUnique({
@@ -58,23 +58,21 @@ export class ImageRepository implements IImageRepository {
       });
 
       return ImageMapper.toDomain(createdImage);
-
     } catch (error) {
       logger.error('Error saving image: ', error);
       return null;
     }
   }
 
-    async findById(imageId: number): Promise<Image | null> {
-        const image = await this.prisma.image.findUnique({
-        where: {
-            id_imagem: imageId,
-        },
-        });
-    
-        if (!image) return null;
-    
-        return new Image(image.id_imagem, image.imagem);
-    }
+  async findById(imageId: number): Promise<Image | null> {
+    const image = await this.prisma.image.findUnique({
+      where: {
+        id_imagem: imageId,
+      },
+    });
 
+    if (!image) return null;
+
+    return new Image(image.id_imagem, image.imagem);
+  }
 }

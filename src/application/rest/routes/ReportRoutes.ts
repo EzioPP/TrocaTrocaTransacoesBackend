@@ -5,7 +5,6 @@ const reportRoutes = Router();
 
 const reportController = ReportControllerFactory();
 
-
 reportRoutes.get('/', async (req: Request, res: Response) => {
   try {
     const reports = await reportController.findAll();
@@ -27,16 +26,18 @@ reportRoutes.get('/id/:id', async (req: Request, res: Response) => {
   }
 });
 
-reportRoutes.post('/', 
-  
+reportRoutes.post(
+  '/',
+
   async (req: Request, res: Response) => {
-  try {
-    const report = await reportController.save(req.body);
-    res.send(report);
-  } catch (error) {
-    res.status(500).send({ error: 'Internal Server Error' });
-  }
-});
+    try {
+      const report = await reportController.save(req.body);
+      res.send(report);
+    } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  },
+);
 
 reportRoutes.put('/id/:id', async (req: Request, res: Response) => {
   try {

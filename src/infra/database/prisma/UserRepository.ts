@@ -4,29 +4,20 @@ import { IUserServices } from '@/domain/services';
 import { UserMapper } from '@/infra/mapper';
 import { logger } from '../../logger/logger';
 
-
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 
-
-
-
 export class PrismaUserRepository implements IUserRepository {
-  constructor(
-    private prisma: PrismaClient,
-    private readonly userServices: IUserServices,
-  ) {}
+  constructor(private prisma: PrismaClient) {}
 
   async save(user: User): Promise<User | null> {
     try {
-      const encryptedPassword = await this.userServices.encryptPassword(
-        user.password,
-      );
       const createdUser = await this.prisma.user.create({
         data: {
           username: user.username,
-          senha: encryptedPassword,
-          id_cliente: user.clientId,
+          senha: user.password,
+          permissao: user.permission,
+          ...(user.clientId && { id_cliente: user.clientId }),
         },
       });
       return UserMapper.toDomain(createdUser);
@@ -95,29 +86,6 @@ export class PrismaUserRepository implements IUserRepository {
     }
   }
 
-  async login(username: string, password: string): Promise<string | null> {    
-    try {
-      const secret = process.env.SECRET_KEY || 'segredo';
-      const user = await this.prisma.user.findUnique({
-        where: {
-          username,
-        },
-      });
-      if (!user || !user.senha) return `404`;
-      const isPasswordValid = await this.userServices.comparePassword(
-        password,
-        user.senha,
-      );
-      if (!isPasswordValid) return '401';
-      const token = jwt.sign({ userId: user.id_usuario, username: user.username }, secret, {
-        expiresIn: '1h'
-      });
-      return token;
-    } catch (error) {
-      logger.error(error);
-      return null;
-    }
-  }
 
   async delete(userId: number): Promise<User | null> {
     try {

@@ -6,6 +6,7 @@ export class UserMapper {
       user.id_cliente ?? 0,
       user.username ?? '',
       user.senha ?? '',
+      user.permissao ?? '',
       user.id_cliente ?? 0,
     );
   }
@@ -15,6 +16,7 @@ export class UserMapper {
       id_usuario: user.id,
       username: user.username,
       senha: user.password,
+      permissao: user.permission,
       id_cliente: user.clientId,
     };
   }

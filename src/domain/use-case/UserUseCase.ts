@@ -40,6 +40,13 @@ export class UserUseCase {
     return this.userRepository.delete(userId);
   }
   async login(username: string, password: string): Promise<string | null> {
-    return this.userRepository.login(username, password);
+    const user = await this.userRepository.findByUsername(username);
+    if (!user || !user.password) return '404';
+    const isValidPassword = await this.userServices.comparePassword(
+      password,
+      user.password,
+    );
+    if (!isValidPassword) return '401';
+    return 'token';
   }
 }

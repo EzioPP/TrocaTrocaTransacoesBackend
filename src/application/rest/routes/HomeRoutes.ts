@@ -3,7 +3,6 @@ import { logger } from '../../../infra/logger/logger';
 
 const HomeRoutes = Router();
 
-
 HomeRoutes.get('/', async (req: Request, res: Response) => {
   try {
     res.send('Troca Troca Transações Divitiae et voluptates: duo in uno');

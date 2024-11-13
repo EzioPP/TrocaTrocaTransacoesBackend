@@ -2,17 +2,20 @@ export class User {
   private _id: number;
   private readonly _username: string;
   private _password: string;
+  private _permission: string;
   private _clientId: number;
 
   constructor(
     id: number,
     username: string,
     password: string,
+    permission: string,
     clientId: number,
   ) {
     this._id = id;
     this._username = username;
     this._password = password;
+    this._permission = permission;
     this._clientId = clientId;
   }
 
@@ -28,6 +31,10 @@ export class User {
     return this._password;
   }
 
+  get permission(): string {
+    return this._permission;
+  }
+
   get clientId(): number {
     return this._clientId;
   }
@@ -38,6 +45,10 @@ export class User {
 
   set password(value: string) {
     this._password = value;
+  }
+
+  set permission(value: string) {
+    this._permission = value;
   }
 
   set clientId(value: number) {

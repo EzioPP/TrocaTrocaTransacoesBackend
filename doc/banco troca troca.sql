@@ -2,7 +2,7 @@
 create table usuario (
 	id_usuario serial primary key,
 	username varchar (50) unique,
-	senha varchar (50),
+	senha text,
 	id_cliente int,
 	permissao varchar (20),
 	foreign key (id_cliente) references cliente (id_cliente)

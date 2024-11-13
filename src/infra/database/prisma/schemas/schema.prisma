@@ -20,13 +20,13 @@ model Card {
 }
 
 model Client {
-  id_cliente Int     @id @default(autoincrement())
-  cpf        String? @unique @db.VarChar(11)
-  nome       String? @db.VarChar(50)
+  id_cliente Int      @id @default(autoincrement())
+  cpf        String?  @unique @db.VarChar(11)
+  nome       String?  @db.VarChar(50)
   saldo      Decimal? @db.Decimal(10, 2)
-  telefone   String? @db.VarChar(11)
-  email      String? @unique @db.VarChar(50)
-  endereco   String? @db.VarChar(150)
+  telefone   String?  @db.VarChar(11)
+  email      String?  @unique @db.VarChar(50)
+  endereco   String?  @db.VarChar(150)
 
   @@map("cliente")
 }
@@ -44,7 +44,7 @@ model Report {
   data_relatorio DateTime? @db.Date
   id_cliente     Int?
   id_imagem      Int?
-  imagem         Image?   @relation(fields: [id_imagem], references: [id_imagem], onDelete: NoAction, onUpdate: NoAction)
+  imagem         Image?    @relation(fields: [id_imagem], references: [id_imagem], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("relatorio")
 }
@@ -70,8 +70,9 @@ model Image {
 
 model User {
   id_usuario Int     @id @default(autoincrement())
-  username      String? @unique @db.VarChar(50)
-  senha      String? @db.VarChar(50)
+  username   String? @unique @db.VarChar(50)
+  senha      String? @db.Text
+  permissao  String? @db.VarChar(20)
   id_cliente Int?
 
   @@map("usuario")
