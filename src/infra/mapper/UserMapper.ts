@@ -3,7 +3,7 @@ import { User } from '@/domain/entities';
 export class UserMapper {
   static toDomain(user: UserPrisma): User {
     return new User(
-      user.id_cliente ?? 0,
+      user.id_usuario ?? 0,
       user.username ?? '',
       user.senha ?? '',
       user.permissao ?? '',

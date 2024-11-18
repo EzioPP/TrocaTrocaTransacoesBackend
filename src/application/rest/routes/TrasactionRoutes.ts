@@ -1,17 +1,25 @@
 import { TransactionControllerFactory } from '@/application/factories';
 import { Router, Request, Response } from 'express';
+import protect from '../middleware/Protect';
+import { can } from '../middleware/Permission';
+import { User } from '@/domain/entities';
 
 const TransactionRoutes = Router();
 const transactionController = TransactionControllerFactory();
 
-TransactionRoutes.get('/', async (req: Request, res: Response) => {
-  try {
-    const transactions = await transactionController.findAll();
-    res.send(transactions);
-  } catch (error) {
-    res.status(500).send({ error: 'Internal Server Error' });
-  }
-});
+TransactionRoutes.get(
+  '/',
+  protect,
+  can('user'),
+  async (req: Request, res: Response) => {
+    try {
+      const transactions = await transactionController.findAll();
+      res.send(transactions);
+    } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  },
+);
 
 TransactionRoutes.get('/id/:id', async (req: Request, res: Response) => {
   try {
@@ -48,16 +56,22 @@ TransactionRoutes.put('/id/:id', async (req: Request, res: Response) => {
   }
 });
 
-TransactionRoutes.get('/client/:id', async (req: Request, res: Response) => {
-  try {
-    const transactions = await transactionController.findByClientId(
-      Number(req.params.id),
-    );
-    res.send(transactions);
-  } catch (error) {
-    res.status(500).send({ error: 'Internal Server Error' });
-  }
-});
+TransactionRoutes.get(
+  '/client',
+  protect,
+  can('user'),
+  async (req: Request, res: Response) => {
+    try {
+      const user: User = req.user as User;
+      const transactions = await transactionController.findByClientId(
+        user.clientId,
+      );
+      res.send(transactions);
+    } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  },
+);
 
 TransactionRoutes.delete('/id/:id', async (req: Request, res: Response) => {
   try {

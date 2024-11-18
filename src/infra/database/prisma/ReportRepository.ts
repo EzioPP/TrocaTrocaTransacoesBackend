@@ -41,7 +41,11 @@ export class PrismaReportRepository implements IReportRepository {
 
   async findAll(): Promise<Report[]> {
     try {
-      const reports = await this.prisma.report.findMany();
+      const reports = await this.prisma.report.findMany({
+        orderBy: {
+          data_relatorio: 'desc',
+        },
+      });
       return reports.map((report) => ReportMappper.toDomain(report));
     } catch (error) {
       logger.error(error);

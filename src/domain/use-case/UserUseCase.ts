@@ -47,6 +47,6 @@ export class UserUseCase {
       user.password,
     );
     if (!isValidPassword) return '401';
-    return 'token';
+    return this.userServices.generateToken(user);
   }
 }

@@ -1,5 +1,6 @@
 import { Client as ClientPrisma } from '@prisma/client';
 import { Client } from '../../domain/entities/Client';
+import { cli } from 'winston/lib/winston/config';
 export class ClientMapper {
   static toDomain(clientPrisma: ClientPrisma) {
     return new Client(
@@ -9,6 +10,7 @@ export class ClientMapper {
       clientPrisma.telefone ?? '',
       clientPrisma.email ?? '',
       clientPrisma.endereco ?? '',
+      clientPrisma.saldo?.toNumber() ?? 0
     );
   }
   //TODO: a database nao tem os atributos declarados
@@ -22,6 +24,7 @@ export class ClientMapper {
       telefone: client.phone,
       email: client.email,
       endereco: client.address,
+      saldo: client.balance,
     };
   }
 }

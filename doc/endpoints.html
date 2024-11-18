@@ -11,12 +11,12 @@ Retorna a página inicial da API
 - GET http://localhost:5015/api/user/: Recupera todos os usuários.
 - GET http://localhost:5015/api/users/id/:id: Recupera um usuário pelo ID.
 - GET http://localhost:5015/api/users/username/:username: Recupera um usuário pelo username.
-POST http://localhost:5015/api/user/login    HTTP/1.1
+POST http://localhost:5015/api/user/login HTTP/1.1
 content-type: application/json
 
 {
-    "username": "admin",
-    "password": "admin"
+"username": "admin",
+"password": "admin"
 }
 
 
@@ -24,9 +24,10 @@ POST http://localhost:5015/api/user HTTP/1.1
 content-type: application/json
 
 {
-    "username": "admin",
-    "password": "admin",
-    "permission": "administrador"
+"username": "userP",
+"password": "userP",
+"permission": "usuario",
+"clientId": 1
 }
 
 - PUT http://localhost:5015/api/users/id/:id: Atualiza um usuário existente pelo ID.
@@ -42,7 +43,7 @@ Cada rota usa o UserControllerFactory para realizar as operações necessárias.
 
 ### Exemplo de uso:
 - GET http://localhost:5015/api/users/id/1
-  Retorna o usuário com o ID 1.
+Retorna o usuário com o ID 1.
 
 ## Rotas de Clientes || api/clients
 
@@ -62,7 +63,7 @@ Cada rota usa o ClientControllerFactory para realizar as operações necessária
 
 ### Exemplo de uso:
 - GET http://localhost:5015/api/clients/id/1
-  Retorna o cliente com o ID 1.
+Retorna o cliente com o ID 1.
 
 ## Rotas de Transações || api/transactions
 
@@ -82,7 +83,7 @@ Cada rota usa o TransactionControllerFactory para realizar as operações necess
 
 ### Exemplo de uso:
 - GET http://localhost:5015/api/transactions/id/1
-  Retorna a transação com o ID 1.
+Retorna a transação com o ID 1.
 
 ## Rotas de Relatórios || api/reports
 
@@ -102,7 +103,7 @@ Cada rota usa o ReportControllerFactory para realizar as operações necessária
 
 ### Exemplo de uso:
 - GET http://localhost:5015/api/reports/id/1
-  Retorna o relatório com o ID 1.
+Retorna o relatório com o ID 1.
 
 ## Rotas de Pix || api/pix
 
@@ -122,7 +123,7 @@ Cada rota usa o PixControllerFactory para realizar as operações necessárias.
 
 ### Exemplo de uso:
 - GET http://localhost:5015/api/pix/id/1
-  Retorna o pix com o ID 1.
+Retorna o pix com o ID 1.
 
 ## Rotas de Cartões || api/cards
 
@@ -142,4 +143,4 @@ Cada rota usa o CardControllerFactory para realizar as operações necessárias.
 
 ### Exemplo de uso:
 - GET http://localhost:5015/api/cards/id/1
-  Retorna o cartão com o ID 1.
+Retorna o cartão com o ID 1.

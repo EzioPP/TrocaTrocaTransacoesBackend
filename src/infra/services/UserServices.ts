@@ -24,19 +24,19 @@ export class UserServices implements IUserServices {
   }
 
   async generateToken(user: User): Promise<string | null> {
-    try {
-      const secret = process.env.JWT_SECRET || '';
-      const token = jwt.sign(
-        { userId: user.id, username: user.username },
-        secret,
-        {
-          expiresIn: '1h',
-        },
-      );
-      return token;
-    } catch (error) {
-      logger.error(error);
-      return null;
-    }
+    const secret = process.env.SECRET_KEY || '';
+    const token = jwt.sign(
+      {
+        id: user.id,
+        username: user.username,
+        permission: user.permission,
+        clientId: user.clientId,
+      },
+      secret,
+      {
+        expiresIn: '1h',
+      },
+    );
+    return token;
   }
 }

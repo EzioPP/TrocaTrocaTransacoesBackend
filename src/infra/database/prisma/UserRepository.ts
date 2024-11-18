@@ -5,7 +5,6 @@ import { UserMapper } from '@/infra/mapper';
 import { logger } from '../../logger/logger';
 
 import { PrismaClient } from '@prisma/client';
-import jwt from 'jsonwebtoken';
 
 export class PrismaUserRepository implements IUserRepository {
   constructor(private prisma: PrismaClient) {}
@@ -20,6 +19,7 @@ export class PrismaUserRepository implements IUserRepository {
           ...(user.clientId && { id_cliente: user.clientId }),
         },
       });
+      console.log(createdUser);
       return UserMapper.toDomain(createdUser);
     } catch (error) {
       logger.error(error);
@@ -85,7 +85,6 @@ export class PrismaUserRepository implements IUserRepository {
       return null;
     }
   }
-
 
   async delete(userId: number): Promise<User | null> {
     try {

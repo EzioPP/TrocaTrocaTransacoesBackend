@@ -1,6 +1,6 @@
 export class Card {
   private _cardId: number;
-  private _expirationDate: Date;
+  private _expirationDate: string;
   private _cardNumber: string;
   private _cvv: string;
   private _cardType: string;
@@ -9,7 +9,7 @@ export class Card {
 
   constructor(
     cardId: number,
-    expirationDate: Date,
+    expirationDate: string,
     cardNumber: string,
     cvv: string,
     cardType: string,
@@ -29,7 +29,7 @@ export class Card {
     return this._cardId;
   }
 
-  get expirationDate(): Date {
+  get expirationDate(): string {
     return this._expirationDate;
   }
 
@@ -57,7 +57,7 @@ export class Card {
     this._cardId = value;
   }
 
-  set expirationDate(value: Date) {
+  set expirationDate(value: string) {
     this._expirationDate = value;
   }
 

@@ -5,6 +5,7 @@ export interface IPixRepository {
   findByKey(key: string): Promise<Pix | null>;
   findById(pixId: number): Promise<Pix | null>;
   findAll(): Promise<Pix[]>;
+  findByClientId(clientId: number): Promise<Pix[]>;
   update(pix: Pix): Promise<Pix | null>;
   delete(pixId: number): Promise<Pix | null>;
 }

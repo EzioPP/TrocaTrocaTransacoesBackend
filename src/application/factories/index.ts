@@ -4,3 +4,4 @@ export * from './PixControllerFactory';
 export * from './ReportControllerFactory';
 export * from './TransactionControllerFactory';
 export * from './UserControllerFactory';
+export * from './ImageControllerFactory';

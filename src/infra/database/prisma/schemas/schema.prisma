@@ -8,12 +8,12 @@ datasource db {
 }
 
 model Card {
-  id_cartao        Int       @id @default(autoincrement())
-  data_validade    DateTime? @db.Date
-  numero_cartao    String?   @unique @db.VarChar(16)
-  codigo_seguranca String?   @db.VarChar(3)
-  tipo_cartao      String?   @db.VarChar(10)
-  limite_cartao    Decimal?  @db.Decimal(10, 2)
+  id_cartao        Int      @id @default(autoincrement())
+  data_validade    String?  @db.Char(10)
+  numero_cartao    String?  @unique @db.VarChar(16)
+  codigo_seguranca String?  @db.VarChar(3)
+  tipo_cartao      String?  @db.VarChar(20)
+  limite_cartao    Decimal? @db.Decimal(10, 2)
   id_cliente       Int?
 
   @@map("cartao")
@@ -44,7 +44,6 @@ model Report {
   data_relatorio DateTime? @db.Date
   id_cliente     Int?
   id_imagem      Int?
-  imagem         Image?    @relation(fields: [id_imagem], references: [id_imagem], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("relatorio")
 }
@@ -61,9 +60,8 @@ model Transaction {
 }
 
 model Image {
-  id_imagem Int      @id @default(autoincrement())
+  id_imagem Int   @id @default(autoincrement())
   imagem    Bytes
-  relatorio Report[]
 
   @@map("imagem")
 }

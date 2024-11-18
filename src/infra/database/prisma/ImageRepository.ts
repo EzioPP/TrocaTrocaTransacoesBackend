@@ -10,7 +10,7 @@ import { logger } from '@/infra/logger';
     _imageData: Buffer; */
 
 export class PrismaImageRepository implements IImageRepository {
-  constructor(private prisma: PrismaClient) { }
+  constructor(private prisma: PrismaClient) {}
 
   async findByImageId(imageId: number): Promise<Image | null> {
     try {

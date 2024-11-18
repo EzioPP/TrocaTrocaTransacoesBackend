@@ -63,6 +63,20 @@ export class PrismaPixRepository implements IPixRepository {
     }
   }
 
+  async findByClientId(clientId: number): Promise<Pix[]> {
+    try {
+      const pixs = this.prisma.pix.findMany({
+        where: {
+          id_cliente: clientId,
+        },
+      });
+      return pixs.then((pixs) => pixs.map(PixMapper.toDomain));
+    } catch (error) {
+      logger.error(error);
+      return [];
+    }
+  }
+
   async update(pix: Pix): Promise<Pix | null> {
     try {
       const updatedPix = await this.prisma.pix.update({

@@ -6,7 +6,7 @@ import { logger } from '@/infra/logger/logger';
 import { PrismaClient } from '@prisma/client';
 
 export class PrismaCardRepository implements ICardRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   async save(card: Card): Promise<Card | null> {
     try {
@@ -15,6 +15,7 @@ export class PrismaCardRepository implements ICardRepository {
           data_validade: card.expirationDate,
           numero_cartao: card.cardNumber,
           codigo_seguranca: card.cvv,
+          tipo_cartao: card.cardType,
           limite_cartao: card.limit,
           id_cliente: card.clientId,
         },
@@ -56,6 +57,20 @@ export class PrismaCardRepository implements ICardRepository {
   async findAll(): Promise<Card[]> {
     try {
       const cards = await this.prisma.card.findMany();
+      return cards.map(CardMapper.toDomain);
+    } catch (error) {
+      logger.error(error);
+      return [];
+    }
+  }
+
+  async findByClientId(clientId: number): Promise<Card[]> {
+    try {
+      const cards = await this.prisma.card.findMany({
+        where: {
+          id_cliente: clientId,
+        },
+      });
       return cards.map(CardMapper.toDomain);
     } catch (error) {
       logger.error(error);

@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import { logger } from '@/infra/logger';
 
 declare module 'express' {
@@ -15,10 +14,10 @@ export default function protect(
   next: NextFunction,
 ) {
   try {
-    const secret = process.env.SECRET;
+    const secret = process.env.SECRET_KEY;
+
     if (!secret) throw new Error('Secret is not defined');
 
-    // Extract token from HTTP-only cookie
     const token = req.cookies?.token;
 
     if (!token) {
@@ -37,6 +36,8 @@ export default function protect(
     };
 
     jwt.verify(token, secret, verifyCallback);
+
+    console.log('Token:', token);
   } catch (error) {
     logger.error(error);
     return res.status(500).json({ message: 'Internal server error' });

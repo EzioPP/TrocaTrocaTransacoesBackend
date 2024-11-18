@@ -1,6 +1,6 @@
 export class User {
   private _id: number;
-  private readonly _username: string;
+  private _username: string;
   private _password: string;
   private _permission: string;
   private _clientId: number;

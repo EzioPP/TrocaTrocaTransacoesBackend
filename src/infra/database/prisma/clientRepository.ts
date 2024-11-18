@@ -5,7 +5,7 @@ import { logger } from '../../logger/logger';
 
 import { PrismaClient } from '@prisma/client';
 export class PrismaClientRepository implements IClientRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   async save(client: Client): Promise<Client | null> {
     try {
@@ -41,6 +41,21 @@ export class PrismaClientRepository implements IClientRepository {
     }
   }
 
+  async findByCpf(cpf: string): Promise<Client | null> {
+    try {
+      const client = await this.prisma.client.findUnique({
+        where: {
+          cpf,
+        },
+      });
+      if (!client) return null;
+      return ClientMapper.toDomain(client);
+    } catch (error) {
+      logger.error(error);
+      return null;
+    }
+  }
+
   async findById(clientId: number): Promise<Client | null> {
     try {
       const client = await this.prisma.client.findUnique({
@@ -49,6 +64,7 @@ export class PrismaClientRepository implements IClientRepository {
         },
       });
       if (!client) return null;
+      console.log('Client:', client);
       return ClientMapper.toDomain(client);
     } catch (error) {
       logger.error(error);

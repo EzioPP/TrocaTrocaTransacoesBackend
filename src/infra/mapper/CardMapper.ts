@@ -6,7 +6,7 @@ export class CardMapper {
   static toDomain(card: CardPrisma): Card {
     return new Card(
       card.id_cartao,
-      card.data_validade ?? new Date(),
+      card.data_validade ?? '',
       card.numero_cartao ?? '',
       card.codigo_seguranca ?? '',
       card.tipo_cartao ?? '',

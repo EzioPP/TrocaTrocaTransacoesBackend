@@ -17,6 +17,11 @@ export class CardUseCase {
   async findAll(): Promise<Card[]> {
     return await this.iCardRepository.findAll();
   }
+
+  async findByClientId(clientId: number): Promise<Card[]> {
+    return await this.iCardRepository.findByClientId(clientId);
+  }
+
   async update(card: Card): Promise<Card | null> {
     return await this.iCardRepository.update(card);
   }
