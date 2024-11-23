@@ -1,10 +1,12 @@
 import { User } from '@/domain/entities';
 import { Request, Response, NextFunction } from 'express';
-import { permission } from 'process';
-/* example
 
-protect(administrador)
-*/
+declare module 'express' {
+  export interface Request {
+    user_permission?: number;
+  }
+}
+
 enum PermissionEnum {
   'admin' = 3,
   'moderator' = 2,
@@ -30,7 +32,7 @@ export function can(permission: string) {
       if (userPermissionValue < requiredPermissionValue) {
         return res.status(403).json({ message: 'Access denied' });
       }
-
+      req.user_permission = userPermissionValue;
       next();
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });

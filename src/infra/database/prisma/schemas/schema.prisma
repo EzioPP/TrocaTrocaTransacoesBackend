@@ -50,7 +50,7 @@ model Report {
 
 model Transaction {
   id_transacao   Int       @id @default(autoincrement())
-  data_transacao DateTime? @db.Date
+  data_transacao DateTime?
   valor          Decimal?  @db.Decimal(10, 2)
   status         String?   @db.VarChar(20)
   tipo           String?   @db.VarChar(20)

@@ -22,6 +22,9 @@ export class PixUseCase {
   async findById(pixId: number): Promise<Pix | null> {
     return await this.iPixRepository.findById(pixId);
   }
+  async findByClientId(clientId: number): Promise<Pix[]> {
+    return await this.iPixRepository.findByClientId(clientId);
+  }
   async findAll(): Promise<Pix[]> {
     return await this.iPixRepository.findAll();
   }

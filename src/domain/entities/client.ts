@@ -20,7 +20,7 @@ export class Client {
     this._cpf = cpf;
     this._name = name;
     this._phone = phone;
-    this._email = address;
+    this._email = email;
     this._balance = balance;
     this._address = address;
   }

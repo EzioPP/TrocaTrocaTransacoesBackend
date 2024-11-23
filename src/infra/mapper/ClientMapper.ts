@@ -3,7 +3,7 @@ import { Client } from '../../domain/entities/Client';
 import { cli } from 'winston/lib/winston/config';
 export class ClientMapper {
   static toDomain(clientPrisma: ClientPrisma) {
-    return new Client(
+    const client = new Client(
       clientPrisma.id_cliente ?? '',
       clientPrisma.cpf ?? '',
       clientPrisma.nome ?? '',
@@ -12,6 +12,7 @@ export class ClientMapper {
       clientPrisma.endereco ?? '',
       clientPrisma.saldo?.toNumber() ?? 0
     );
+    return client;
   }
   //TODO: a database nao tem os atributos declarados
   //FIX: resolvendo setando na database o que deve ser not null

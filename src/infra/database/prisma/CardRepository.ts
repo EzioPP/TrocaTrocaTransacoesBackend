@@ -40,6 +40,24 @@ export class PrismaCardRepository implements ICardRepository {
       return null;
     }
   }
+
+  async findByClientIdAndType(clientId: number, type: string): Promise<Card[]> {
+    try {
+      const cards = await this.prisma.card.findMany({
+        where: {
+          id_cliente: clientId,
+          tipo_cartao: {
+            contains: type,
+          },
+        },
+      });
+      return cards.map(CardMapper.toDomain);
+    } catch (error) {
+      logger.error(error);
+      return [];
+    }
+  }
+
   async findByNumber(cardNumber: string): Promise<Card | null> {
     try {
       const card = await this.prisma.card.findUnique({

@@ -17,6 +17,9 @@ export class ClientUseCase {
   async findByCpf(cpf: string): Promise<Client | null> {
     return await this.iClientRepository.findByCpf(cpf);
   }
+  async findByPhone(phone: string): Promise<Client | null> {
+    return await this.iClientRepository.findByPhone(phone);
+  }
   async findAll(): Promise<Client[]> {
     return await this.iClientRepository.findAll();
   }

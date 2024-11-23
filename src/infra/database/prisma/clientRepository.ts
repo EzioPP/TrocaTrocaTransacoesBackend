@@ -56,6 +56,21 @@ export class PrismaClientRepository implements IClientRepository {
     }
   }
 
+
+  async findByPhone(phone: string): Promise<Client | null> {
+    try {
+      const client = await this.prisma.client.findFirst({
+        where: {
+          telefone: phone,
+        },
+      });
+      if (!client) return null;
+      return ClientMapper.toDomain(client);
+    } catch (error) {
+      logger.error(error);
+      return null;
+    }
+  }
   async findById(clientId: number): Promise<Client | null> {
     try {
       const client = await this.prisma.client.findUnique({

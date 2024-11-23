@@ -1,12 +1,14 @@
-import { Client, User } from '@/domain/entities';
+import { Client, Transaction, User } from '@/domain/entities';
 import { ClientControllerFactory } from '../../factories/ClientControllerFactory';
 
 import { Router, Request, Response } from 'express';
 import protect from '../middleware/Protect';
 import { can } from '../middleware/Permission';
+import { TransactionControllerFactory } from '@/application/factories';
 
 const ClientRoutes = Router();
 const clientController = ClientControllerFactory();
+const transactionController = TransactionControllerFactory();
 
 ClientRoutes.get('/', async (req: Request, res: Response) => {
   try {
@@ -44,6 +46,8 @@ ClientRoutes.get('/client',
       res.status(500).send({ error: 'Internal Server Error' });
     }
   });
+
+
 
 ClientRoutes.post('/email/', async (req: Request, res: Response) => {
   try {

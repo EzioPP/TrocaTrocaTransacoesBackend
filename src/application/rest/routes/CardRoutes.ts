@@ -68,6 +68,22 @@ CardRoutes.get('/client',
     }
   });
 
+CardRoutes.get('/client/:type',
+  protect,
+  can('user'),
+  async (req: Request, res: Response) => {
+    try {
+      const user: User = req.user as User;
+      const cards = await cardController.findByClientIdAndType(
+        user.clientId,
+        req.params.type,
+      );
+      res.send(cards);
+    } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  });
+
 CardRoutes.post('/client',
   protect,
   can('user'),
@@ -97,16 +113,28 @@ CardRoutes.get('/number/:number', async (req: Request, res: Response) => {
   }
 });
 
-CardRoutes.delete('/id/:id', async (req: Request, res: Response) => {
-  try {
-    const card = await cardController.delete(Number(req.params.id));
-    if (!card) {
-      res.status(404).send({ error: 'Card not found' });
+CardRoutes.delete('/client/:id',
+  protect,
+  can('user'),
+  async (req: Request, res: Response) => {
+    try {
+      if (!req.user_permission || !req.user) {
+        return res.status(403).send({ error: 'Permission denied' });
+      }
+      const card = await cardController.findById(Number(req.params.id));
+      if (!card) {
+        return res.status(404).send({ error: 'Card not found' });
+      }
+      const user = req.user as User;
+      if (card.clientId !== user.clientId && req.user_permission < 2) {
+        return res.status(403).send({ error: 'Permission denied' });
+      }
+      await cardController.delete(Number(req.params.id));
+      res.send({ message: 'Card deleted successfully' });
+    } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
     }
-    res.send(card);
-  } catch (error) {
-    res.status(500).send({ error: 'Internal Server Error' });
-  }
-});
+  });
+
 
 export default CardRoutes;
