@@ -38,6 +38,9 @@ PixRoutes.get('/client',
     try {
       const pixs = await pixController.findByClientId(user.clientId);
       console.log('Pix:', pixs);
+      if (!pixs) {
+        res.send([]);
+      }
       res.send(pixs);
     } catch (error) {
       res.status(500).send({ error: 'Internal Server Error' });
