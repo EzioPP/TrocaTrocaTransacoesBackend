@@ -60,8 +60,10 @@ model Transaction {
 }
 
 model Image {
-  id_imagem Int   @id @default(autoincrement())
-  imagem    Bytes
+  id_imagem  Int     @id @default(autoincrement())
+  titulo     String?
+  imagem     Bytes
+  id_cliente Int?
 
   @@map("imagem")
 }

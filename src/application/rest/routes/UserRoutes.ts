@@ -6,6 +6,7 @@ import { isNumber, isEmail } from '@/infra/services';
 import protect from '../middleware/Protect';
 import { Router, Request, Response } from 'express';
 import { can } from '../middleware/Permission';
+import { User } from '@/domain/entities';
 
 const UserRoutes = Router();
 
@@ -164,5 +165,16 @@ UserRoutes.post('/new-account', async (req: Request, res: Response) => {
     res.status(500).send({ error: 'Internal Server Error' });
   }
 });
+
+UserRoutes.post('/logout', async (req: Request, res: Response) => {
+  try {
+    console.log('Logout');
+    res.clearCookie('token');
+    res.send({ message: 'User logged out' });
+  } catch (error) {
+    res.status(500).send({ error: 'Internal Server Error' });
+  }
+}
+);
 
 export default UserRoutes;
