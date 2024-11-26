@@ -24,6 +24,12 @@ export class ReportUseCase {
     return await this.iReportRepository.findById(reportId);
   }
 
+  async getReportImage(reportId: number): Promise<Image | null> {
+    const report = await this.iReportRepository.findById(reportId);
+    if (!report) return null;
+    return await this.iImageRepository.findByImageId(report.imageId);
+  }
+
   async generateReport(clientId: number, dateRange: string): Promise<Report | null> {
     const transactions = await this.iTransactionRepository.findByClientIdAndDateRange(clientId, dateRange);
     const buffer = await this.iReportServices.generateReport(transactions);

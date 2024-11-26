@@ -2,6 +2,7 @@ import { ReportControllerFactory } from '@/application/factories';
 import { Router, Request, Response } from 'express';
 import protect from '../middleware/Protect';
 import { can } from '../middleware/Permission';
+import { User } from '@/domain/entities';
 
 const reportRoutes = Router();
 
@@ -28,6 +29,19 @@ reportRoutes.get('/id/:id', async (req: Request, res: Response) => {
   }
 });
 
+reportRoutes.get('/file/:id', async (req: Request, res: Response) => {
+
+  try {
+    const report = await reportController.getReportImage(Number(req.params.id));
+    if (!report) {
+      res.status(404).send({ error: 'Report not found' });
+    }
+    res.send(report);
+  } catch (error) {
+    res.status(500).send({ error: 'Internal Server Error' });
+  }
+});
+
 reportRoutes.post(
   '/',
 
@@ -41,10 +55,34 @@ reportRoutes.post(
   },
 );
 
+
+reportRoutes.get('/client',
+  protect,
+  can('user'),
+  async (req: Request, res: Response) => {
+    try {
+      const user = req.user as User;
+      const reports = await reportController.findByClientId(user.clientId);
+      res.send(reports);
+    } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  });
+
+
 reportRoutes.post('/client/byDate',
   protect,
   can('user'),
+  async (req: Request, res: Response) => {
+    try {
+      const user = req.user as User;
+      const reports = await reportController.generateReport(user.clientId, req.body.dateString);
+      res.send(reports);
+    } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
 
+    }
+  }
 );
 
 

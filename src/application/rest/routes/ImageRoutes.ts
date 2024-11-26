@@ -5,7 +5,7 @@ import { Image } from '@/domain/entities/Image';
 import multer from 'multer';
 import protect from '../middleware/Protect';
 import { can } from '../middleware/Permission';
-
+import path from 'path';
 import { SharpImageServices } from '@/infra/services/SharpImageServices';
 const fs = require('fs').promises;
 const ImageRoutes = Router();
@@ -63,9 +63,7 @@ ImageRoutes.post('/client/profile',
             if (oldImage) {
                 await imageController.delete(oldImage.imageId);
             }
-            const imageResult = await imageController.save(image);
-            const path = require('path');
-            await fs.rmdir('uploads', { recursive: true });
+            const imageResult = await imageController.save(image);;
 
             res.status(200).send(imageResult);
         } catch (error) {
@@ -79,7 +77,7 @@ ImageRoutes.get('/client/profile',
         try {
 
             const user: User = req.user as User;
-            const title = `profile - ${user.clientId}`;
+            const title = `profile-${user.clientId}`;
             let image;
             image = await imageController.findByTitle(title);
             if (!image) {

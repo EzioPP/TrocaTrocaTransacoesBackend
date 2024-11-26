@@ -75,12 +75,17 @@ export class PrismaTransactionRepository implements ITransactionRepository {
     dateRange: string,
   ): Promise<Transaction[]> {
     try {
+      const [startDate, endDate] = String(dateRange).split(' - ');
+
+
+      const gteDate = new Date(startDate);
+      const lteDate = new Date(endDate);
       const transactions = await this.prisma.transaction.findMany({
         where: {
           id_cliente: clientId,
           data_transacao: {
-            gte: new Date(dateRange.split(' - ')[0]),
-            lte: new Date(dateRange.split(' - ')[1]),
+            gte: gteDate,
+            lte: lteDate
           },
         },
       });
