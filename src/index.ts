@@ -1,1 +1,3 @@
-require('./rest/server');
+import 'dotenv/config';
+
+require('@/application/rest/Server');

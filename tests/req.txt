@@ -1,3 +1,0 @@
-Enpoints:
-http://localhost:3000/api/rates
-http://localhost:3000/

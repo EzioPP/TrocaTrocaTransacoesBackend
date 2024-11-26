@@ -1,0 +1,146 @@
+# Documentação dos Endpoints
+
+## Rotas Home || api/
+
+### GET http://localhost:5015/
+Retorna a página inicial da API
+
+## Rotas de Usuários || api/users
+
+### Rotas:
+- GET http://localhost:5015/api/user/: Recupera todos os usuários.
+- GET http://localhost:5015/api/users/id/:id: Recupera um usuário pelo ID.
+- GET http://localhost:5015/api/users/username/:username: Recupera um usuário pelo username.
+POST http://localhost:5015/api/user/login HTTP/1.1
+content-type: application/json
+
+{
+"username": "admin",
+"password": "admin"
+}
+
+
+POST http://localhost:5015/api/user HTTP/1.1
+content-type: application/json
+
+{
+"username": "userP",
+"password": "userP",
+"permission": "usuario",
+"clientId": 1
+}
+
+- PUT http://localhost:5015/api/users/id/:id: Atualiza um usuário existente pelo ID.
+- DELETE http://localhost:5015/api/users/id/:id: Deleta um usuário pelo ID.
+- POST http://localhost:5015/api/users/login: Autentica um usuário.
+
+Cada rota usa o UserControllerFactory para realizar as operações necessárias.
+
+### Tratamento de Erros:
+- Retorna código de status 500 com a mensagem 'Erro Interno do Servidor' para quaisquer erros do servidor.
+- Retorna código de status 404 com a mensagem 'Usuário não encontrado' se o usuário não for encontrado.
+- Retorna código de status 401 com a mensagem 'Não autorizado' para falhas de autenticação.
+
+### Exemplo de uso:
+- GET http://localhost:5015/api/users/id/1
+Retorna o usuário com o ID 1.
+
+## Rotas de Clientes || api/clients
+
+### Rotas:
+- GET http://localhost:5015/api/clients: Recupera todos os clientes.
+- GET http://localhost:5015/api/clients/id/:id: Recupera um cliente pelo ID.
+- POST http://localhost:5015/api/clients/email: Recupera um cliente pelo email.
+- POST http://localhost:5015/api/clients: Cria um novo cliente.
+- PUT http://localhost:5015/api/clients/id/:id: Atualiza um cliente existente pelo ID.
+- DELETE http://localhost:5015/api/clients/id/:id: Deleta um cliente pelo ID.
+
+Cada rota usa o ClientControllerFactory para realizar as operações necessárias.
+
+### Tratamento de Erros:
+- Retorna código de status 500 com a mensagem 'Erro Interno do Servidor' para quaisquer erros do servidor.
+- Retorna código de status 404 com a mensagem 'Cliente não encontrado' se o cliente não for encontrado.
+
+### Exemplo de uso:
+- GET http://localhost:5015/api/clients/id/1
+Retorna o cliente com o ID 1.
+
+## Rotas de Transações || api/transactions
+
+### Rotas:
+- GET http://localhost:5015/api/transactions: Recupera todas as transações.
+- GET http://localhost:5015/api/transactions/id/:id: Recupera uma transação pelo ID.
+- POST http://localhost:5015/api/transactions: Cria uma nova transação.
+- PUT http://localhost:5015/api/transactions/id/:id: Atualiza uma transação existente pelo ID.
+- GET http://localhost:5015/api/transactions/client/:id: Recupera transações pelo ID do cliente.
+- DELETE http://localhost:5015/api/transactions/id/:id: Deleta uma transação pelo ID.
+
+Cada rota usa o TransactionControllerFactory para realizar as operações necessárias.
+
+### Tratamento de Erros:
+- Retorna código de status 500 com a mensagem 'Erro Interno do Servidor' para quaisquer erros do servidor.
+- Retorna código de status 404 com a mensagem 'Transação não encontrada' se a transação não for encontrada.
+
+### Exemplo de uso:
+- GET http://localhost:5015/api/transactions/id/1
+Retorna a transação com o ID 1.
+
+## Rotas de Relatórios || api/reports
+
+### Rotas:
+- GET http://localhost:5015/api/reports: Recupera todos os relatórios.
+- GET http://localhost:5015/api/reports/id/:id: Recupera um relatório pelo ID.
+- POST http://localhost:5015/api/reports: Cria um novo relatório.
+- PUT http://localhost:5015/api/reports/id/:id: Atualiza um relatório existente pelo ID.
+- GET http://localhost:5015/api/reports/client/:id: Recupera relatórios pelo ID do cliente.
+- DELETE http://localhost:5015/api/reports/id/:id: Deleta um relatório pelo ID.
+
+Cada rota usa o ReportControllerFactory para realizar as operações necessárias.
+
+### Tratamento de Erros:
+- Retorna código de status 500 com a mensagem 'Erro Interno do Servidor' para quaisquer erros do servidor.
+- Retorna código de status 404 com a mensagem 'Relatório não encontrado' se o relatório não for encontrado.
+
+### Exemplo de uso:
+- GET http://localhost:5015/api/reports/id/1
+Retorna o relatório com o ID 1.
+
+## Rotas de Pix || api/pix
+
+### Rotas:
+- GET http://localhost:5015/api/pix: Recupera todos os pix.
+- GET http://localhost:5015/api/pix/id/:id: Recupera um pix pelo ID.
+- POST http://localhost:5015/api/pix: Cria um novo pix.
+- PUT http://localhost:5015/api/pix/id/:id: Atualiza um pix existente pelo ID.
+- GET http://localhost:5015/api/pix/key/:key: Recupera um pix pela chave.
+- DELETE http://localhost:5015/api/pix/id/:id: Deleta um pix pelo ID.
+
+Cada rota usa o PixControllerFactory para realizar as operações necessárias.
+
+### Tratamento de Erros:
+- Retorna código de status 500 com a mensagem 'Erro Interno do Servidor' para quaisquer erros do servidor.
+- Retorna código de status 404 com a mensagem 'Pix não encontrado' se o pix não for encontrado.
+
+### Exemplo de uso:
+- GET http://localhost:5015/api/pix/id/1
+Retorna o pix com o ID 1.
+
+## Rotas de Cartões || api/cards
+
+### Rotas:
+- GET http://localhost:5015/api/cards: Recupera todos os cartões.
+- GET http://localhost:5015/api/cards/id/:id: Recupera um cartão pelo ID.
+- POST http://localhost:5015/api/cards: Cria um novo cartão.
+- PUT http://localhost:5015/api/cards/id/:id: Atualiza um cartão existente pelo ID.
+- GET http://localhost:5015/api/cards/number/:number: Recupera um cartão pelo número.
+- DELETE http://localhost:5015/api/cards/id/:id: Deleta um cartão pelo ID.
+
+Cada rota usa o CardControllerFactory para realizar as operações necessárias.
+
+### Tratamento de Erros:
+- Retorna código de status 500 com a mensagem 'Erro Interno do Servidor' para quaisquer erros do servidor.
+- Retorna código de status 404 com a mensagem 'Cartão não encontrado' se o cartão não for encontrado.
+
+### Exemplo de uso:
+- GET http://localhost:5015/api/cards/id/1
+Retorna o cartão com o ID 1.

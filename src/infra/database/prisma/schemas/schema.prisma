@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Card {
+  id_cartao        Int      @id @default(autoincrement())
+  data_validade    String?  @db.Char(10)
+  numero_cartao    String?  @unique @db.VarChar(16)
+  codigo_seguranca String?  @db.VarChar(3)
+  tipo_cartao      String?  @db.VarChar(20)
+  limite_cartao    Decimal? @db.Decimal(10, 2)
+  id_cliente       Int?
+
+  @@map("cartao")
+}
+
+model Client {
+  id_cliente Int      @id @default(autoincrement())
+  cpf        String?  @unique @db.VarChar(11)
+  nome       String?  @db.VarChar(50)
+  saldo      Decimal? @db.Decimal(10, 2)
+  telefone   String?  @db.VarChar(11)
+  email      String?  @unique @db.VarChar(50)
+  endereco   String?  @db.VarChar(150)
+
+  @@map("cliente")
+}
+
+model Pix {
+  id_pix     Int     @id @default(autoincrement())
+  tipo_chave String? @unique @db.VarChar(20)
+  id_cliente Int?
+
+  @@map("pix")
+}
+
+model Report {
+  id_relatorio   Int       @id @default(autoincrement())
+  data_relatorio DateTime? @db.Date
+  id_cliente     Int?
+  id_imagem      Int?
+
+  @@map("relatorio")
+}
+
+model Transaction {
+  id_transacao   Int       @id @default(autoincrement())
+  data_transacao DateTime?
+  valor          Decimal?  @db.Decimal(10, 2)
+  status         String?   @db.VarChar(20)
+  tipo           String?   @db.VarChar(20)
+  id_cliente     Int?
+
+  @@map("transacao")
+}
+
+model Image {
+  id_imagem  Int     @id @default(autoincrement())
+  titulo     String?
+  imagem     Bytes
+  id_cliente Int?
+
+  @@map("imagem")
+}
+
+model User {
+  id_usuario Int     @id @default(autoincrement())
+  username   String? @unique @db.VarChar(50)
+  senha      String? @db.Text
+  permissao  String? @db.VarChar(20)
+  id_cliente Int?
+
+  @@map("usuario")
+}
