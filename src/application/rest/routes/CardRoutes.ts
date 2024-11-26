@@ -4,7 +4,7 @@ import { Router, Request, Response } from 'express';
 import protect from '../middleware/Protect';
 import { can } from '../middleware/Permission';
 import { User } from '@/domain/entities';
-import { Card } from '@/domain/entities/Card';
+import { Card } from '@/domain/entities';
 
 const CardRoutes = Router();
 const cardController = CardControllerFactory();

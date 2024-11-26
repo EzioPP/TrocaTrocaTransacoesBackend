@@ -6,7 +6,7 @@ import { logger } from '../../logger/logger';
 import { PrismaClient } from '@prisma/client';
 
 export class PrismaTransactionRepository implements ITransactionRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   async save(transaction: Transaction): Promise<Transaction | null> {
     try {
@@ -53,11 +53,35 @@ export class PrismaTransactionRepository implements ITransactionRepository {
     }
   }
 
+
   async findByClientId(clientId: number): Promise<Transaction[]> {
     try {
       const transactions = await this.prisma.transaction.findMany({
         where: {
           id_cliente: clientId,
+        },
+      });
+      return transactions.map((transaction) =>
+        TransactionMapper.toDomain(transaction),
+      );
+    } catch (error) {
+      logger.error(error);
+      return [];
+    }
+  }
+
+  async findByClientIdAndDateRange(
+    clientId: number,
+    dateRange: string,
+  ): Promise<Transaction[]> {
+    try {
+      const transactions = await this.prisma.transaction.findMany({
+        where: {
+          id_cliente: clientId,
+          data_transacao: {
+            gte: new Date(dateRange.split(' - ')[0]),
+            lte: new Date(dateRange.split(' - ')[1]),
+          },
         },
       });
       return transactions.map((transaction) =>

@@ -1,12 +1,12 @@
 export class Report {
-  private _reportId: number;
+  private _reportId?: number;
   private _reportDate: Date;
   private _reportType: string;
   private _clientId: number;
   private _imageId: number;
 
   constructor(
-    reportId: number,
+    reportId: number | undefined,
     reportDate: Date,
     reportType: string,
     clientId: number,
@@ -19,7 +19,7 @@ export class Report {
     this._imageId = imageId;
   }
 
-  get reportId(): number {
+  get reportId(): number | undefined {
     return this._reportId;
   }
 
@@ -39,7 +39,7 @@ export class Report {
     return this._imageId;
   }
 
-  set reportId(value: number) {
+  set reportId(value: number | undefined) {
     this._reportId = value;
   }
 

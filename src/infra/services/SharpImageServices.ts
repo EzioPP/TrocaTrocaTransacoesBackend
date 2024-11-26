@@ -2,9 +2,9 @@ import { IImageServices } from "@/domain/services";
 import sharp from 'sharp';
 
 export class SharpImageServices implements IImageServices {
-    async convertImageToBuffer(image: string): Promise<Buffer> {
+    async convertImageToBuffer(path: string): Promise<Buffer> {
         try {
-            const buffer = await sharp(image).toBuffer();
+            const buffer = await sharp(path).toBuffer();
             return buffer;
         } catch (error) {
             if (error instanceof Error) {

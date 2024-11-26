@@ -1,5 +1,7 @@
 import { ReportControllerFactory } from '@/application/factories';
 import { Router, Request, Response } from 'express';
+import protect from '../middleware/Protect';
+import { can } from '../middleware/Permission';
 
 const reportRoutes = Router();
 
@@ -38,6 +40,13 @@ reportRoutes.post(
     }
   },
 );
+
+reportRoutes.post('/client/byDate',
+  protect,
+  can('user'),
+
+);
+
 
 reportRoutes.put('/id/:id', async (req: Request, res: Response) => {
   try {

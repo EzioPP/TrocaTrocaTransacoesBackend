@@ -11,8 +11,8 @@ export class Image {
   _image: Buffer;
   _clientId: number;
 
-  constructor(imageId: number, title: string, image: Buffer, clientId: number) {
-    this._imageId = imageId;
+  constructor(title: string, image: Buffer, clientId: number, imageId?: number) {
+    this._imageId = imageId ?? 0;
     this._title = title;
     this._image = image;
     this._clientId = clientId;

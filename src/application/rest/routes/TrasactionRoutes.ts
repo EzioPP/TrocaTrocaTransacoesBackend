@@ -70,56 +70,79 @@ TransactionRoutes.post('/transaction',
         return res.status(404).send({ error: 'Client not found' });
       }
       req.body.clientId = user.clientId;
+      const transactionDate = new Date();
+      const saoPauloOffset = -3 * 60;
+      const saoPauloTime = new Date(transactionDate.getTime() + saoPauloOffset * 60 * 1000);
+      req.body.transactionDate = saoPauloTime
 
-      req.body.transactionDate = new Date();
+      console.log(req.body);
       const newTransaction: Transaction = req.body;
-      if (newTransaction.type !== 'Deposito') {
+      if (newTransaction.type === 'Deposito') {
+
+        client.balance += newTransaction.value;
+
+        const updatedClient = await clientController.update(client);
+        if (!updatedClient) {
+          return res.status(404).send({ error: 'Client not found' });
+        }
+        const result = await transactionController.save(newTransaction);
+        console.log('Transaction:', result);
+        return res.send(updatedClient);
+      }
+
+      if (newTransaction.type === 'Saque') {
+
         if (client.balance < newTransaction.value) {
           return res.status(400).send({ error: 'Insufficient balance' });
         }
-        const value = newTransaction.value;
         newTransaction.value = -newTransaction.value;
-        console.log('New transaction:', newTransaction);
-        let clients;
-        console.log('Key:', req.body.keyType);
-        if (req.body.keyType === 'CPF') {
-          clients = await clientController.findByCpf(req.body.key);
-        }
-        else if (req.body.keyType === 'Email') {
-          clients = await clientController.findByEmail(req.body.key);
-        }
-        else {
-          clients = await clientController.findByPhone(req.body.key);
-        }
+        client.balance += newTransaction.value;
 
-        if (!clients) {
+        const updatedClient = await clientController.update(client);
+        if (!updatedClient) {
           return res.status(404).send({ error: 'Client not found' });
         }
-        console.log('Client:', clients);
-        const pixs = await pixController.findByClientId(clients.clientId);
-
-        if (!pixs) {
-          return res.status(404).send({ error: 'Pix not found' });
-        }
-        if (pixs[0].keyType !== req.body.keyType) {
-          return res.status(404).send({ error: 'Pix not found' });
-        }
-        console.log('ola');
+        const result = await transactionController.save(newTransaction);
+        console.log('Transaction:', result);
+        return res.send(updatedClient);
       }
-      client.balance += newTransaction.value;
+      if (client.balance < newTransaction.value) {
+        return res.status(400).send({ error: 'Insufficient balance' });
+      }
+      newTransaction.value = -newTransaction.value;
+      console.log('New transaction:', newTransaction);
 
-      const updatedClient = await clientController.update(client);
-      if (!updatedClient) {
+      let clients;
+      switch (req.body.keyType) {
+        case 'CPF':
+          clients = await clientController.findByCpf(req.body.key);
+          break;
+        case 'Email':
+          clients = await clientController.findByEmail(req.body.key);
+          break;
+        case 'Phone':
+          clients = await clientController.findByPhone(req.body.key);
+          break;
+        default:
+          return res.status(400).send({ error: 'Invalid key type' });
+      }
+
+      if (!clients) {
         return res.status(404).send({ error: 'Client not found' });
       }
-      const result = await transactionController.save(newTransaction);
-      console.log('Transaction:', result);
-      res.send(updatedClient);
+      console.log('Client:', clients);
 
+      const pixs = await pixController.findByClientId(clients.clientId);
+      if (!pixs || pixs[0].keyType !== req.body.keyType) {
+        return res.status(404).send({ error: 'Pix not found' });
+      }
+      console.log('Pix:', pixs);
     }
     catch (error) {
+
       res.status(500).send({ error: 'Internal Server Error' });
     }
+
   }
 );
 TransactionRoutes.get(

@@ -14,10 +14,11 @@ export class ReportMappper {
 
   static toPersistence(report: Report): ReportPrisma {
     return {
-      id_relatorio: report.reportId,
+
       data_relatorio: report.reportDate,
       id_cliente: report.clientId,
       id_imagem: report.imageId,
+      id_relatorio: report.reportId ?? 0,
     };
   }
 }

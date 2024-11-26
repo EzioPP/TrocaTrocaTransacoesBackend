@@ -6,15 +6,9 @@ export class ImageUseCase {
     //
   }
   async save(image: Image): Promise<void> {
-    let imageBuffer = await this.iImageServices.convertImageToBuffer(image.title);
-    imageBuffer = await this.iImageServices.changeResolution(imageBuffer, 400, 400);
-    image.image = imageBuffer;
     await this.iImageRepository.save(image);
   }
   async update(image: Image): Promise<void> {
-    let imageBuffer = await this.iImageServices.convertImageToBuffer(image.title);
-    imageBuffer = await this.iImageServices.changeResolution(imageBuffer, 400, 400);
-    image.image = imageBuffer;
     await this.iImageRepository.update(image);
   }
 
@@ -33,4 +27,6 @@ export class ImageUseCase {
   async findByTitle(title: string): Promise<Image | null> {
     return await this.iImageRepository.findByTitle(title);
   }
+
+
 }
